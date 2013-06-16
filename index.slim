@@ -1,0 +1,173 @@
+---
+layout: default
+title: tmate • Share your terminal in 10 seconds
+---
+
+<a href="https://github.com/nviennot/tmate"><img style="position: absolute; top: 0; right:0; border: 0; width: 149px; height: 149px;" src="http://aral.github.com/fork-me-on-github-retina-ribbons/right-orange@2x.png" alt="Fork me on GitHub"></a>
+
+.hero-unit
+  h1 tmate
+  h2 Share your terminal in 10 seconds
+  p show something cool, pair program, or quickly get some help
+
+.row
+  .span4
+    h3 1. Launch tmate
+    p tmate is a fork of <a href="http://tmux.sourceforge.net/">tmux</a>.
+      tmate will reuse your tmux configuration, and is compatible with your
+      tmux scripts. Both can be installed on the same system.
+      Launching tmate starts a new session.
+    img[src="/img/1_step.png"]
+
+  .span4
+    h3 2. Share your session
+    p tmate embeds a SSH client to replicate your session on tmate.io in the
+      background.<br />Once started, tmate prints an ssh command at the bottom
+      of the terminal that you can share.
+    img[src="/img/2_step.png"]
+
+  .span4
+    h3 3. Pair program
+    p Your trusted friends can join your session with the ssh
+      command that has been previously provided. You will receive
+      notifications when someone joins or leave the session.
+    img[src="/img/3_step.png"]
+
+hr
+.row
+  .span12
+    h2 Installation
+
+    p tmate and tmux can coexist on the same system, they do not conflict with
+      each other. <br />
+      tmate uses uses the standard .tmux.conf configuration file and the
+      TMUX environment variable to permit tmux scripting (in vim, etc.)
+
+    h3 Mac OSX
+    p You need to have <a href="http://mxcl.github.io/homebrew/">Homebrew</a>
+      installed as a prerequisite.
+    pre brew update                      && \
+        brew tap nviennot/homebrew-tmate && \
+        brew install tmate
+
+    h3 Ubuntu
+    p Only Ubuntu 12.04 and 12.10 have published packages for tmate.
+      Please ask if you need support for more OSes.
+    pre sudo apt-get install python-software-properties && \
+        sudo add-apt-repository ppa:nviennot/tmate      && \
+        sudo apt-get update                             && \
+        sudo apt-get install tmate
+
+    h3 From source
+    p Grab the sources from github:
+      <a
+      href="https://github.com/nviennot/tmate">https://github.com/nviennot/tmate</a>.<br />
+      A few dependencies are required. The Ubuntu packages names: cmake, pkg-config, libtool, libevent-dev,
+      libncurses-dev, libssl-dev, zlib1g-dev.
+    pre ./autogen.sh && \
+        ./configure  && \
+        make         && \
+        make install &&
+
+hr
+.row
+  .span12
+    h2 Technical Details
+  .span6
+    p Figure 1 depicts the architecture diagram, and the different component of
+      the system. The following describe the connection process with its
+      security considerations, the protocol used between the two tmux servers.
+
+    h4 Connection process
+
+    p When launching tmate, a SSH connection is established to tmate.io in the
+      background through <a href="http://www.libssh.org/">libssh</a>.
+      The server SSH key signatures are hardcoded in tmate and are
+      verified during the DH exchange to prevent against man in the middle attacks.
+      The user side is authenticated with local SSH keys. tmate doesn't
+      currently supports keys with a passphrase. A local SSH agent may be used
+      in that scenario.
+
+    p When a connection is established on tmate.io, a random session token of
+      150bits is generated (good luck bruteforcing this), and then a tmux server
+      is spawned in a jail with no file system, with its own
+      <a href="http://lwn.net/Articles/531114/#series_index">PID namespace</a>
+      for process isolation, and no user privileges. To achieve this, all
+      the files that the are required for the tmux server execution are opened
+      before the fork. These measures are in place to limit the usefulness of
+      (possible) exploits on the tmux server as the attacker would not be able
+      to access other sessions, ensuring confidentiality.
+
+    p When a mate connects to tmate.io with the ssh command, the unix socket
+      session is looked up from the token on the file system. On lookup
+      failures, a random sleep is performed to prevent timing attacks, otherwise
+      a tmux client is spawned and connected to the remote tmux server.
+
+    h4 Protocol
+
+    p The local and remote tmux servers communicate with a protocol on top of
+      <a href="http://msgpack.org/">msgpack</a>, which is gzipped over SSH for
+      network bandwidth efficiency as vim scrolling can generate massive amount
+      of data.
+
+    p In order to keep the remote tmux server in sync with the local tmux
+      server, PTY window pane's raw outputs are streamed individually as opposed
+      to synchronizing the entire tmux window. Furthermore, window layouts,
+      status bar changes, and copy mode state are also replicated. Finally, most
+      of the tmux commands (like bind-key) are replicated. This ensure that the
+      key bindings are the same on both side.
+
+    p The remote clients keystrokes are parsed, and the outcome is sent to the
+      local tmux server. This includes tmux commands such as split-window,
+      window pane keystrokes, or window size information.
+
+    p This protocol ensure portability for future work such as a HTML5 client.
+
+  .span6
+    .fig
+      img[src="/img/arch.svg"]
+    p.fig-label <span>Figure 1:</span> Simplified Architecture Diagram
+
+    h4 Future Work
+
+    p This project can take many interesting directions. <br />
+      Here is what I have on the roadmap:
+
+    ul
+      li Make the user experience top notch. Please
+         <a href="https://github.com/nviennot/tmate/issues">submit bug reports</a>
+         when you see issues.
+
+      li Tolerate network failures. Dealing with reconnections and roaming (IP
+         changes) similarly to what <a href="http://mosh.mit.edu/">Mosh</a> offers.
+
+      li Support for read-only clients. This would be easy to do by providing
+         another session token, distinct from the read-write access one.
+
+      li Each participants should be able to have their own tmux config.
+
+      li Getting low latencies for everyone requires having nodes spread out
+         all over the globe.
+
+      li HTML5 client with fullscreen support, with audio.
+
+      li Record sessions to provide replay and full text search.
+
+      li Being able to make certain session public. This would be useful
+         to pair people with similar interests, or to do screencasts.
+
+hr
+.row
+  .span12
+    h2 Get in touch
+
+    p If you'd like to get in touch, here are your options:
+
+    ul
+      li Submit bug reports on github: <a href="https://github.com/nviennot/tmate/issues">https://github.com/nviennot/tmate/issues</a>.
+      li Hit me on <a href="irc://irc.freenode.net/libssh">#tmate (freenode)</a>.
+      li Post a message on Google Groups: <a href="https://groups.google.com/group/tmate-io">https://groups.google.com/group/tmate-io</a>
+      li Or send an email to <a href="mailto:tmate-io@googlegroups.com">https://groups.google.com/group/tmate-io</a>
+
+    p Enjoy,<br />
+      Nico.
