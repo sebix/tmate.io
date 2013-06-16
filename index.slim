@@ -32,13 +32,11 @@ title: tmate • Instant terminal sharing
 
 hr
 .row
-  .span12
+  .span6
     h2 Installation
 
     p tmate and tmux can coexist on the same system, they do not conflict with
-      each other. <br />
-      tmate uses uses the standard .tmux.conf configuration file and the
-      TMUX environment variable to permit tmux scripting (in vim, etc.)
+      each other.
 
     h3 Mac OSX
     p You need to have <a href="http://mxcl.github.io/homebrew/">Homebrew</a>
@@ -64,6 +62,18 @@ hr
         ./configure  && \
         make         && \
         make install &&
+
+  .span6
+    h2 Usage
+
+    p Once installed, simply launch tmate with <code>tmate</code>.
+    p The terminal
+      is forced to 256 colors and UTF-8, so you don't need to pass
+      <code>-2</code> as you may be used to do with tmux.
+    p tmate uses the standard <code>.tmux.conf</code> configuration file and the
+      <code>TMUX</code> environment variable to permit tmux scripting (in vim, etc.).
+    p If you want to retreive the SSH connection string once the message has
+      disappeared from the status bar, run <code>tmate show-messages</code>.
 
 hr
 .row
