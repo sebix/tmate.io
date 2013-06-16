@@ -27,7 +27,8 @@ the system. The following describe the connection process with its
 security considerations, the protocol used between the two tmux servers.</p><h4>Connection process</h4><p>When launching tmate, a SSH connection is established to tmate.io in the
 background through <a href="http://www.libssh.org/">libssh</a>.
 The server SSH key signatures are hardcoded in tmate and are
-verified during the DH exchange to prevent against man in the middle attacks.
+verified during the DH exchange to prevent against
+<a href="http://en.wikipedia.org/wiki/Man-in-the-middle_attack">man in the middle attacks</a>.
 The user side is authenticated with local SSH keys. tmate doesn't
 currently supports keys with a passphrase. A local SSH agent may be used
 in that scenario.</p><p>When a connection is established on tmate.io, a random session token of
@@ -40,7 +41,8 @@ before the fork. These measures are in place to limit the usefulness of
 (possible) exploits on the tmux server as the attacker would not be able
 to access other sessions, ensuring confidentiality.</p><p>When a mate connects to tmate.io with the ssh command, the unix socket
 session is looked up from the token on the file system. On lookup
-failures, a random sleep is performed to prevent timing attacks, otherwise
+failures, a random sleep is performed to prevent
+<a href="http://en.wikipedia.org/wiki/Timing_attack">timing attacks</a>, otherwise
 a tmux client is spawned and connected to the remote tmux server.</p><h4>Protocol</h4><p>The local and remote tmux servers communicate with a protocol on top of
 <a href="http://msgpack.org/">msgpack</a>, which is gzipped over SSH for
 network bandwidth efficiency as vim scrolling can generate massive amount

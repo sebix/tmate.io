@@ -83,7 +83,8 @@ hr
     p When launching tmate, a SSH connection is established to tmate.io in the
       background through <a href="http://www.libssh.org/">libssh</a>.
       The server SSH key signatures are hardcoded in tmate and are
-      verified during the DH exchange to prevent against man in the middle attacks.
+      verified during the DH exchange to prevent against
+      <a href="http://en.wikipedia.org/wiki/Man-in-the-middle_attack">man in the middle attacks</a>.
       The user side is authenticated with local SSH keys. tmate doesn't
       currently supports keys with a passphrase. A local SSH agent may be used
       in that scenario.
@@ -100,7 +101,8 @@ hr
 
     p When a mate connects to tmate.io with the ssh command, the unix socket
       session is looked up from the token on the file system. On lookup
-      failures, a random sleep is performed to prevent timing attacks, otherwise
+      failures, a random sleep is performed to prevent
+      <a href="http://en.wikipedia.org/wiki/Timing_attack">timing attacks</a>, otherwise
       a tmux client is spawned and connected to the remote tmux server.
 
     h4 Protocol
