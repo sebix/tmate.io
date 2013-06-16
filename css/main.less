@@ -4,8 +4,9 @@ body {
   color: #aaa;
 }
 
-::-moz-selection { color: black; background: #b26818 }
-::selection      { color: black; background: #b26818 }
+::-webkit-selection { color: black; background: rgba(178, 104, 24, 0.99); }
+   ::-moz-selection { color: black; background: rgba(178, 104, 24, 0.99); }
+        ::selection { color: black; background: rgba(178, 104, 24, 0.99); }
 
 h1, h2, h3, h4, h5, h6 {
   color: #bbb;
@@ -30,7 +31,7 @@ p {
 }
 
 hr {
-  border-bottom: 1px solid rgba(100, 100, 100, 0.5);
+  border-bottom: 1px solid #3b3b3b;
   border-top: 0;
   margin-top: 35px;
 
@@ -86,3 +87,34 @@ p.fig-label {
   width: 460px;
   margin-top: 10px;
 }
+
+.nav-tabs {
+  border-bottom: 1px solid #3b3b3b;
+}
+
+.nav-tabs > li {
+  margin-bottom: -1px;
+}
+
+.nav-tabs > li > a:hover,
+.nav-tabs > li > a:focus {
+  border-color: #3b3b3b;
+}
+
+.nav-tabs > .active > a,
+.nav-tabs > .active > a:hover,
+.nav-tabs > .active > a:focus {
+  color: #aaa;
+  cursor: default;
+  background-color: rgba(0, 0, 0, 0.3);
+  border: 1px solid #3b3b3b;
+  border-bottom-color: transparent;
+}
+
+.nav > li > a:hover,
+.nav > li > a:focus {
+  text-decoration: none;
+  color: #0088cc;
+  background-color: rgba(0, 0, 0, 0.3);
+}
+

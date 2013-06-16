@@ -38,30 +38,35 @@ hr
     p tmate and tmux can coexist on the same system, they do not conflict with
       each other.
 
-    h3 Mac OSX
-    p You need to have <a href="http://mxcl.github.io/homebrew/">Homebrew</a>
-      installed as a prerequisite.
-    pre brew update                      && \
-        brew tap nviennot/homebrew-tmate && \
-        brew install tmate
+    .tabbable
+      ul.nav.nav-tabs
+        li.active: a[href="#macosx" data-toggle="tab"] Mac OS X
+        li:        a[href="#ubuntu" data-toggle="tab"] Ubuntu
+        li:        a[href="#source" data-toggle="tab"] From Source
 
-    h3 Ubuntu
-    p Only Ubuntu 12.04 and 12.10 have published packages for tmate.
-      Please ask if you need support for more OSes.
-    pre sudo apt-get install python-software-properties && \
-        sudo add-apt-repository ppa:nviennot/tmate      && \
-        sudo apt-get update                             && \
-        sudo apt-get install tmate
-
-    h3 From source
-    p Grab the sources from github:
-      <a href="https://github.com/nviennot/tmate">https://github.com/nviennot/tmate</a>.<br />
-      A few dependencies are required. The Ubuntu packages names: cmake, pkg-config, libtool, libevent-dev,
-      libncurses-dev, libssl-dev, zlib1g-dev.
-    pre ./autogen.sh && \
-        ./configure  && \
-        make         && \
-        make install &&
+      .tab-content
+        #macosx.tab-pane.active
+          p You need to have <a href="http://mxcl.github.io/homebrew/">Homebrew</a>
+            installed as a prerequisite.
+          pre brew update                      && \
+              brew tap nviennot/homebrew-tmate && \
+              brew install tmate
+        #ubuntu.tab-pane
+          p Only Ubuntu 12.04 and 12.10 have published packages for tmate.
+            Please ask if you need support for more OSes.
+          pre sudo apt-get install python-software-properties && \
+              sudo add-apt-repository ppa:nviennot/tmate      && \
+              sudo apt-get update                             && \
+              sudo apt-get install tmate
+        #source.tab-pane
+          p Grab the sources from github:
+            <a href="https://github.com/nviennot/tmate">https://github.com/nviennot/tmate</a>.<br />
+            A few dependencies are required.<br />
+            The Ubuntu packages names: cmake, pkg-config, libtool, libevent-dev, libncurses-dev, libssl-dev, zlib1g-dev.
+          pre ./autogen.sh && \
+              ./configure  && \
+              make         && \
+              make install &&
 
   .span6
     h2 Usage
@@ -74,6 +79,8 @@ hr
       <code>TMUX</code> environment variable to permit tmux scripting (in vim, etc.).
     p If you want to retreive the SSH connection string once the message has
       disappeared from the status bar, run <code>tmate show-messages</code>.
+    p Your mates will be using your tmux config, keep that in mind for detaching
+      sessions.
 
 hr
 .row
