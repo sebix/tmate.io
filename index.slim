@@ -25,7 +25,7 @@ title: tmate • Instant terminal sharing
       <br />
 
     h4 3. Pair program
-    p Your friends can join your session with the ssh command.
+    p Your mates can join your session with the ssh command.
 
   .span6
     .video
@@ -72,15 +72,14 @@ hr
     h2 Usage
 
     p Once installed, simply launch tmate with <code>tmate</code>.
+    p Your mates will be using your tmux config and your key bindings.
     p The terminal
       is forced to 256 colors and UTF-8, so you don't need to pass
       <code>-2</code> as you may be used to do with tmux.
     p tmate uses the standard <code>.tmux.conf</code> configuration file and the
       <code>TMUX</code> environment variable to permit tmux scripting (in vim, etc.).
-    p If you want to retreive the SSH connection string once the message has
-      disappeared from the status bar, run <code>tmate show-messages</code>.
-    p Your mates will be using your tmux config, keep that in mind for detaching
-      sessions.
+    p Run <code>tmate show-messages</code> in your shell to see tmate's log
+      messages, including the SSH connection string.
 
 hr
 .row

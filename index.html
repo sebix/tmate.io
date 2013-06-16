@@ -4,7 +4,7 @@
 <br /></p><h4>2. Share your session</h4><p>tmate prints an ssh command at the bottom of the terminal.
 <br />
 <br />
-<br /></p><h4>3. Pair program</h4><p>Your friends can join your session with the ssh command.</p></div><div class="span6"><div class="video"></div></div></div><hr /><div class="row"><div class="span6"><h2>Installation</h2><p>tmate and tmux can coexist on the same system, they do not conflict with
+<br /></p><h4>3. Pair program</h4><p>Your mates can join your session with the ssh command.</p></div><div class="span6"><div class="video"></div></div></div><hr /><div class="row"><div class="span6"><h2>Installation</h2><p>tmate and tmux can coexist on the same system, they do not conflict with
 each other.</p><div class="tabbable"><ul class="nav nav-tabs"><li class="active"><a data-toggle="tab" href="#macosx">Mac OS X</a></li><li><a data-toggle="tab" href="#ubuntu">Ubuntu</a></li><li><a data-toggle="tab" href="#source">From Source</a></li></ul><div class="tab-content"><div class="tab-pane active" id="macosx"><p>You need to have <a href="http://mxcl.github.io/homebrew/">Homebrew</a>
 installed as a prerequisite.</p><pre>brew update                      && \
 brew tap nviennot/homebrew-tmate && \
@@ -18,12 +18,11 @@ A few dependencies are required.<br />
 The Ubuntu packages names: cmake, pkg-config, libtool, libevent-dev, libncurses-dev, libssl-dev, zlib1g-dev.</p><pre>./autogen.sh && \
 ./configure  && \
 make         && \
-make install &&</pre></div></div></div></div><div class="span6"><h2>Usage</h2><p>Once installed, simply launch tmate with <code>tmate</code>.</p><p>The terminal
+make install &&</pre></div></div></div></div><div class="span6"><h2>Usage</h2><p>Once installed, simply launch tmate with <code>tmate</code>.</p><p>Your mates will be using your tmux config and your key bindings.</p><p>The terminal
 is forced to 256 colors and UTF-8, so you don't need to pass
 <code>-2</code> as you may be used to do with tmux.</p><p>tmate uses the standard <code>.tmux.conf</code> configuration file and the
-<code>TMUX</code> environment variable to permit tmux scripting (in vim, etc.).</p><p>If you want to retreive the SSH connection string once the message has
-disappeared from the status bar, run <code>tmate show-messages</code>.</p><p>Your mates will be using your tmux config, keep that in mind for detaching
-sessions.</p></div></div><hr /><div class="row"><div class="span12"><h2>Technical Details</h2></div><div class="span6"><p>Figure 1 depicts the architecture diagram, and the different component of
+<code>TMUX</code> environment variable to permit tmux scripting (in vim, etc.).</p><p>Run <code>tmate show-messages</code> in your shell to see tmate's log
+messages, including the SSH connection string.</p></div></div><hr /><div class="row"><div class="span12"><h2>Technical Details</h2></div><div class="span6"><p>Figure 1 depicts the architecture diagram, and the different component of
 the system. The following describe the connection process with its
 security considerations, the protocol used between the two tmux servers.</p><h4>Connection process</h4><p>When launching tmate, a SSH connection is established to tmate.io in the
 background through <a href="http://www.libssh.org/">libssh</a>.
