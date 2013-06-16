@@ -1,0 +1,62 @@
+<!DOCTYPE html><html><head><meta content="width=device-width, initial-scale=1.0" name="viewport" /><meta content="text/html; charset=UTF-8" http-equiv="Content-Type" /><link href="/css/bootstrap.min.css" media="screen" rel="stylesheet" /><link href="/css/main.css" media="screen" rel="stylesheet" /><title>tmate • Share your terminal in 10 seconds</title></head></html><body><div class="container"><a href="https://github.com/nviennot/tmate"><img style="position: absolute; top: 0; right:0; border: 0; width: 149px; height: 149px;" src="http://aral.github.com/fork-me-on-github-retina-ribbons/right-orange@2x.png" alt="Fork me on GitHub"></a><div class="hero-unit"><h1>tmate</h1><h2>Share your terminal in 10 seconds</h2><p>show something cool, pair program, or quickly get some help</p></div><div class="row"><div class="span4"><h3>1. Launch tmate</h3><p>tmate is a fork of <a href="http://tmux.sourceforge.net/">tmux</a>.
+tmate will reuse your tmux configuration, and is compatible with your
+tmux scripts. Both can be installed on the same system.
+Launching tmate starts a new session.</p><img src="/img/1_step.png" /></div><div class="span4"><h3>2. Share your session</h3><p>tmate embeds a SSH client to replicate your session on tmate.io in the
+background.<br />Once started, tmate prints an ssh command at the bottom
+of the terminal that you can share.</p><img src="/img/2_step.png" /></div><div class="span4"><h3>3. Pair program</h3><p>Your trusted friends can join your session with the ssh
+command that has been previously provided. You will receive
+notifications when someone joins or leave the session.</p><img src="/img/3_step.png" /></div></div><hr /><div class="row"><div class="span12"><h2>Installation</h2><p>tmate and tmux can coexist on the same system, they do not conflict with
+each other. <br />
+tmate uses uses the standard .tmux.conf configuration file and the
+TMUX environment variable to permit tmux scripting (in vim, etc.)</p><h3>Mac OSX</h3><p>You need to have <a href="http://mxcl.github.io/homebrew/">Homebrew</a>
+installed as a prerequisite.</p><pre>brew update                      && \
+brew tap nviennot/homebrew-tmate && \
+brew install tmate</pre><h3>Ubuntu</h3><p>Only Ubuntu 12.04 and 12.10 have published packages for tmate.
+Please ask if you need support for more OSes.</p><pre>sudo apt-get install python-software-properties && \
+sudo add-apt-repository ppa:nviennot/tmate      && \
+sudo apt-get update                             && \
+sudo apt-get install tmate</pre><h3>From source</h3><p>Grab the sources from github:
+<a
+href="https://github.com/nviennot/tmate">https://github.com/nviennot/tmate</a>.<br />
+A few dependencies are required. The Ubuntu packages names: cmake, pkg-config, libtool, libevent-dev,
+libncurses-dev, libssl-dev, zlib1g-dev.</p><pre>./autogen.sh && \
+./configure  && \
+make         && \
+make install &&</pre></div></div><hr /><div class="row"><div class="span12"><h2>Technical Details</h2></div><div class="span6"><p>Figure 1 depicts the architecture diagram, and the different component of
+the system. The following describe the connection process with its
+security considerations, the protocol used between the two tmux servers.</p><h4>Connection process</h4><p>When launching tmate, a SSH connection is established to tmate.io in the
+background through <a href="http://www.libssh.org/">libssh</a>.
+The server SSH key signatures are hardcoded in tmate and are
+verified during the DH exchange to prevent against man in the middle attacks.
+The user side is authenticated with local SSH keys. tmate doesn't
+currently supports keys with a passphrase. A local SSH agent may be used
+in that scenario.</p><p>When a connection is established on tmate.io, a random session token of
+150bits is generated (good luck bruteforcing this), and then a tmux server
+is spawned in a jail with no file system, with its own
+<a href="http://lwn.net/Articles/531114/#series_index">PID namespace</a>
+for process isolation, and no user privileges. To achieve this, all
+the files that the are required for the tmux server execution are opened
+before the fork. These measures are in place to limit the usefulness of
+(possible) exploits on the tmux server as the attacker would not be able
+to access other sessions, ensuring confidentiality.</p><p>When a mate connects to tmate.io with the ssh command, the unix socket
+session is looked up from the token on the file system. On lookup
+failures, a random sleep is performed to prevent timing attacks, otherwise
+a tmux client is spawned and connected to the remote tmux server.</p><h4>Protocol</h4><p>The local and remote tmux servers communicate with a protocol on top of
+<a href="http://msgpack.org/">msgpack</a>, which is gzipped over SSH for
+network bandwidth efficiency as vim scrolling can generate massive amount
+of data.</p><p>In order to keep the remote tmux server in sync with the local tmux
+server, PTY window pane's raw outputs are streamed individually as opposed
+to synchronizing the entire tmux window. Furthermore, window layouts,
+status bar changes, and copy mode state are also replicated. Finally, most
+of the tmux commands (like bind-key) are replicated. This ensure that the
+key bindings are the same on both side.</p><p>The remote clients keystrokes are parsed, and the outcome is sent to the
+local tmux server. This includes tmux commands such as split-window,
+window pane keystrokes, or window size information.</p><p>This protocol ensure portability for future work such as a HTML5 client.</p></div><div class="span6"><div class="fig"><img src="/img/arch.svg" /></div><p class="fig-label"><span>Figure 1:</span> Simplified Architecture Diagram</p><h4>Future Work</h4><p>This project can take many interesting directions. <br />
+Here is what I have on the roadmap:</p><ul><li>Make the user experience top notch. Please
+<a href="https://github.com/nviennot/tmate/issues">submit bug reports</a>
+when you see issues.</li><li>Tolerate network failures. Dealing with reconnections and roaming (IP
+changes) similarly to what <a href="http://mosh.mit.edu/">Mosh</a> offers.</li><li>Support for read-only clients. This would be easy to do by providing
+another session token, distinct from the read-write access one.</li><li>Each participants should be able to have their own tmux config.</li><li>Getting low latencies for everyone requires having nodes spread out
+all over the globe.</li><li>HTML5 client with fullscreen support, with audio.</li><li>Record sessions to provide replay and full text search.</li><li>Being able to make certain session public. This would be useful
+to pair people with similar interests, or to do screencasts.</li></ul></div></div><hr /><div class="row"><div class="span12"><h2>Get in touch</h2><p>If you'd like to get in touch, here are your options:</p><ul><li>Submit bug reports on github: <a href="https://github.com/nviennot/tmate/issues">https://github.com/nviennot/tmate/issues</a>.</li><li>Hit me on <a href="irc://irc.freenode.net/libssh">#tmate (freenode)</a>.</li><li>Post a message on Google Groups: <a href="https://groups.google.com/group/tmate-io">https://groups.google.com/group/tmate-io</a></li><li>Or send an email to <a href="mailto:tmate-io@googlegroups.com">https://groups.google.com/group/tmate-io</a></li></ul><p>Enjoy,<br />
+Nico.</p></div></div></div><div class="footer"><div class="container"><div class="row"><div class="span12"><div class="twitter"><p><a href="https://twitter.com/share" class="twitter-share-button" data-url="http://tmate.io/" data-text="Share your terminal in 10 seconds with" data-via="nviennot">Tweet</a></p><p><a href="https://twitter.com/nviennot" class="twitter-follow-button" data-show-count="false">Follow @nviennot</a></p><script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script></div></div></div></div></div><script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','//www.google-analytics.com/analytics.js','ga');ga('create', 'UA-41775490-1', 'tmate.io');ga('send', 'pageview');</script></body>
