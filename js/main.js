@@ -2,7 +2,7 @@
  * If you are curious, here is how I generated the video:
  *   ffmpeg -an -f x11grab -r 30 -s 460x285 -i :0.0+1920,0 -pix_fmt yuv444p -vcodec libx264 -x264opts crf=0 out.mp4
  *   mplayer -fps 3000 -vo png out.mp4
- *   montage *.png -tile x7 -geometry '460x285' out.png
+ *   montage *.png -tile x14 -geometry '460x285' out.png
  *   pngcrush out.png video.png
  */
 
@@ -10,7 +10,7 @@ $(function() {
   var width = 460;
   var height = 285;
   var total_frames = 447;
-  var rows = 7; /* Firefox sucks balls when it comes to wide pngs */
+  var rows = 14; /* Firefox and Safari sucks balls when it comes to wide pngs */
 
   var video = $('.video');
   var frames_per_row = Math.ceil(total_frames / rows);
@@ -36,5 +36,8 @@ $(function() {
     }
   };
 
-  $("<img src='/img/video.png' />").load(function() { startPlayback(); });
+  $("<img src='/img/video.png' />").load(function() {
+    video.css('background-image', "url('/img/video.png')");
+    startPlayback();
+  });
 });
