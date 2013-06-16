@@ -22,29 +22,27 @@ make install &&</pre></div></div></div></div><div class="span6"><h2>Usage</h2><p
 is forced to 256 colors and UTF-8, so you don't need to pass
 <code>-2</code> as you may be used to do with tmux.</p><p>tmate uses the standard <code>.tmux.conf</code> configuration file and the
 <code>TMUX</code> environment variable to permit tmux scripting (in vim, etc.).</p><p>Run <code>tmate show-messages</code> in your shell to see tmate's log
-messages, including the SSH connection string.</p></div></div><hr /><div class="row"><div class="span12"><h2>Technical Details</h2></div><div class="span6"><p>Figure 1 depicts the architecture diagram, and the different component of
-the system. The following describe the connection process with its
-security considerations, the protocol used between the two tmux servers.</p><h4>Connection process</h4><p>When launching tmate, a SSH connection is established to tmate.io in the
+messages, including the ssh connection string.</p></div></div><hr /><div class="row"><div class="span12"><h2>Technical Details</h2></div><div class="span6"><p>Figure 1 depicts the architecture diagram with the different component of
+the system. The following describes the connection process with its
+security considerations, the protocol used between the two tmux servers,
+and the roadmap of tmate.</p><h4>Connection process</h4><p>When launching tmate, an ssh connection is established to tmate.io in the
 background through <a href="http://www.libssh.org/">libssh</a>.
-The server SSH key signatures are hardcoded in tmate and are
-verified during the DH exchange to prevent against
+The server ssh key signatures are hardcoded in the tmate client and are
+verified during the DH exchange to prevent
 <a href="http://en.wikipedia.org/wiki/Man-in-the-middle_attack">man in the middle attacks</a>.
-The user side is authenticated with local SSH keys. tmate doesn't
-currently supports keys with a passphrase. A local SSH agent may be used
-in that scenario.</p><p>When a connection is established on tmate.io, a random session token of
-150bits is generated (good luck bruteforcing this), and then a tmux server
-is spawned in a jail with no file system, with its own
-<a href="http://lwn.net/Articles/531114/#series_index">PID namespace</a>
-for process isolation, and no user privileges. To achieve this, all
-the files that the are required for the tmux server execution are opened
-before the fork. These measures are in place to limit the usefulness of
-(possible) exploits on the tmux server as the attacker would not be able
-to access other sessions, ensuring confidentiality.</p><p>When a mate connects to tmate.io with the ssh command, the unix socket
-session is looked up from the token on the file system. On lookup
-failures, a random sleep is performed to prevent
-<a href="http://en.wikipedia.org/wiki/Timing_attack">timing attacks</a>, otherwise
-a tmux client is spawned and connected to the remote tmux server.</p><h4>Protocol</h4><p>The local and remote tmux servers communicate with a protocol on top of
-<a href="http://msgpack.org/">msgpack</a>, which is gzipped over SSH for
+The client is authenticated with local ssh keys.</p><p>When a connection is established on tmate.io, a 150 bits session token is
+generated, then a tmux server is spawned in a jail with no file system, with
+its own <a href="http://lwn.net/Articles/531114/#series_index">PID
+namespace</a> to isolate the server from other processes, and no user
+privileges. To allow this, all files required during the tmux server
+execution are opened before getting jailed. These measures are in place to limit
+the usefulness of possible exploits targeting the tmux server. The attacker
+would not be able to access other sessions, ensuring confidentiality.</p><p>When a mate connects to tmate.io with the ssh command, the tmux unix
+socket is looked up on the file system. On lookup failures, a random sleep
+is performed to prevent <a href="http://en.wikipedia.org/wiki/Timing_attack">timing attacks</a>,
+otherwise a tmux client is spawned and connected to the remote tmux
+server.</p></div><div class="span6"><div class="fig"><img src="/img/arch.svg" /></div><p class="fig-label"><span>Figure 1:</span> Simplified Architecture Diagram</p></div></div><div class="row"><div class="span6"><h4>Protocol</h4><p>The local and remote tmux servers communicate with a protocol on top of
+<a href="http://msgpack.org/">msgpack</a>, which is gzipped over ssh for
 network bandwidth efficiency as vim scrolling can generate massive amount
 of data.</p><p>In order to keep the remote tmux server in sync with the local tmux
 server, PTY window pane's raw outputs are streamed individually as opposed
@@ -53,7 +51,7 @@ status bar changes, and copy mode state are also replicated. Finally, most
 of the tmux commands (like bind-key) are replicated. This ensure that the
 key bindings are the same on both side.</p><p>The remote clients keystrokes are parsed, and the outcome is sent to the
 local tmux server. This includes tmux commands such as split-window,
-window pane keystrokes, or window size information.</p><p>This protocol ensure portability for future work such as a HTML5 client.</p></div><div class="span6"><div class="fig"><img src="/img/arch.svg" /></div><p class="fig-label"><span>Figure 1:</span> Simplified Architecture Diagram</p><h4>Future Work</h4><p>This project can take many interesting directions. <br />
+window pane keystrokes, or window size information.</p><p>This protocol ensure portability for future work such as a HTML5 client.</p></div><div class="span6"><h4>Future Work</h4><p>This project can take many interesting directions. <br />
 Here is what I have on the roadmap:</p><ul><li>Make the user experience top notch. Please
 <a href="https://github.com/nviennot/tmate/issues">submit bug reports</a>
 when you see issues.</li><li>Tolerate network failures. Dealing with reconnections and roaming (IP
