@@ -21,7 +21,6 @@ h6 {
 }
 p {
   text-align: justify;
-  text-justify: newspaper;
 }
 .hero-unit {
   margin-top: 50px;
@@ -82,4 +81,10 @@ p.fig-label span {
 }
 .footer .twitter {
   margin-top: 30px;
+}
+.video {
+  background-image: url('/img/video.png');
+  height: 285px;
+  width: 460px;
+  margin-top: 10px;
 }

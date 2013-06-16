@@ -11,27 +11,25 @@ title: tmate • Share your terminal in 10 seconds
   p show something cool, pair program, or quickly get some help
 
 .row
-  .span4
-    h3 1. Launch tmate
+  .span6
+    h4 1. Launch tmate
     p tmate is a fork of <a href="http://tmux.sourceforge.net/">tmux</a>.
       tmate will reuse your tmux configuration, and is compatible with your
       tmux scripts. Both can be installed on the same system.
       Launching tmate starts a new session.
-    img[src="/img/1_step.png"]
 
-  .span4
-    h3 2. Share your session
+    h4 2. Share your session
     p tmate embeds a SSH client to replicate your session on tmate.io in the
-      background.<br />Once started, tmate prints an ssh command at the bottom
+      background. Once started, tmate prints an ssh command at the bottom
       of the terminal that you can share.
-    img[src="/img/2_step.png"]
 
-  .span4
-    h3 3. Pair program
+    h4 3. Pair program
     p Your trusted friends can join your session with the ssh
       command that has been previously provided. You will receive
       notifications when someone joins or leave the session.
-    img[src="/img/3_step.png"]
+
+  .span6
+    .video
 
 hr
 .row
@@ -60,8 +58,7 @@ hr
 
     h3 From source
     p Grab the sources from github:
-      <a
-      href="https://github.com/nviennot/tmate">https://github.com/nviennot/tmate</a>.<br />
+      <a href="https://github.com/nviennot/tmate">https://github.com/nviennot/tmate</a>.<br />
       A few dependencies are required. The Ubuntu packages names: cmake, pkg-config, libtool, libevent-dev,
       libncurses-dev, libssl-dev, zlib1g-dev.
     pre ./autogen.sh && \
