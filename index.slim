@@ -81,7 +81,7 @@ hr
   .span12
     h2 Technical Details
   .span6
-    p Figure 1 depicts the architecture diagram with the different component of
+    p Figure 1 depicts the architecture diagram with the different components of
       the system. The following describes the connection process with its
       security considerations, the protocol used between the two tmux servers,
       and the roadmap of tmate.
@@ -122,17 +122,17 @@ hr
 
     p The local and remote tmux servers communicate with a protocol on top of
       <a href="http://msgpack.org/">msgpack</a>, which is gzipped over ssh for
-      network bandwidth efficiency as vim scrolling can generate massive amount
+      network bandwidth efficiency as vim scrolling can generate massive amounts
       of data.
 
     p In order to keep the remote tmux server in sync with the local tmux
       server, PTY window pane's raw outputs are streamed individually as opposed
       to synchronizing the entire tmux window. Furthermore, window layouts,
       status bar changes, and copy mode state are also replicated. Finally, most
-      of the tmux commands (like bind-key) are replicated. This ensure that the
+      of the tmux commands (like bind-key) are replicated. This ensures that the
       key bindings are the same on both side.
 
-    p The remote clients keystrokes are parsed, and the outcome is sent to the
+    p The remote client's keystrokes are parsed and the outcome is sent to the
       local tmux server. This includes tmux commands such as split-window,
       window pane keystrokes, or window size information.
 

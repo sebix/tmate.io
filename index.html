@@ -17,7 +17,7 @@ make install &&</pre></div></div></div></div><div class="span6"><h2>Usage</h2><p
 is forced to 256 colors and UTF-8, so you don't need to pass
 <code>-2</code> as you may be used to do with tmux.</p><p>tmate uses the standard <code>.tmux.conf</code> configuration file and the
 <code>TMUX</code> environment variable to permit tmux scripting (in vim, etc.).</p><p>Run <code>tmate show-messages</code> in your shell to see tmate's log
-messages, including the ssh connection string.</p></div></div><hr /><div class="row"><div class="span12"><h2>Technical Details</h2></div><div class="span6"><p>Figure 1 depicts the architecture diagram with the different component of
+messages, including the ssh connection string.</p></div></div><hr /><div class="row"><div class="span12"><h2>Technical Details</h2></div><div class="span6"><p>Figure 1 depicts the architecture diagram with the different components of
 the system. The following describes the connection process with its
 security considerations, the protocol used between the two tmux servers,
 and the roadmap of tmate.</p><h4>Connection process</h4><p>When launching tmate, an ssh connection is established to tmate.io in the
@@ -38,13 +38,13 @@ is performed to prevent <a href="http://en.wikipedia.org/wiki/Timing_attack">tim
 otherwise a tmux client is spawned and connected to the remote tmux
 server.</p></div><div class="span6"><div class="fig"><img src="/img/arch.svg" /></div><p class="fig-label"><span>Figure 1:</span> Simplified Architecture Diagram</p></div></div><div class="row"><div class="span6"><h4>Protocol</h4><p>The local and remote tmux servers communicate with a protocol on top of
 <a href="http://msgpack.org/">msgpack</a>, which is gzipped over ssh for
-network bandwidth efficiency as vim scrolling can generate massive amount
+network bandwidth efficiency as vim scrolling can generate massive amounts
 of data.</p><p>In order to keep the remote tmux server in sync with the local tmux
 server, PTY window pane's raw outputs are streamed individually as opposed
 to synchronizing the entire tmux window. Furthermore, window layouts,
 status bar changes, and copy mode state are also replicated. Finally, most
-of the tmux commands (like bind-key) are replicated. This ensure that the
-key bindings are the same on both side.</p><p>The remote clients keystrokes are parsed, and the outcome is sent to the
+of the tmux commands (like bind-key) are replicated. This ensures that the
+key bindings are the same on both side.</p><p>The remote client's keystrokes are parsed and the outcome is sent to the
 local tmux server. This includes tmux commands such as split-window,
 window pane keystrokes, or window size information.</p><p>This protocol ensure portability for future work such as a HTML5 client.</p></div><div class="span6"><h4>Future Work</h4><p>This project can take many interesting directions. <br />
 Here is what I have on the roadmap:</p><ul><li>Make the user experience top notch. Please
