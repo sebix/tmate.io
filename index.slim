@@ -37,6 +37,7 @@ hr
       ul.nav.nav-tabs
         li.active: a[href="#macosx" data-toggle="tab"] Mac OS X
         li:        a[href="#ubuntu" data-toggle="tab"] Ubuntu
+        li:        a[href="#arch"   data-toggle="tab"] Arch
         li:        a[href="#source" data-toggle="tab"] From Source
 
       .tab-content
@@ -53,6 +54,9 @@ hr
               sudo add-apt-repository ppa:nviennot/tmate      && \
               sudo apt-get update                             && \
               sudo apt-get install tmate
+        #arch.tab-pane
+          p Unofficial AUR package: <a href="https://aur.archlinux.org/packages/tmate/">https://aur.archlinux.org/packages/tmate/</a>.
+          p To install, follow instructions from the <a href="https://wiki.archlinux.org/index.php/Arch_User_Repository#Installing_packages">Arch wiki</a>.
         #source.tab-pane
           p Grab the sources from github:
             <a href="https://github.com/nviennot/tmate">https://github.com/nviennot/tmate</a>.<br />
