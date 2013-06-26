@@ -3,11 +3,11 @@ tmate and tmux can coexist on the same system, they do not conflict with
 each other.</p><div class="tabbable"><ul class="nav nav-tabs"><li class="active"><a data-toggle="tab" href="#macosx">Mac OS X</a></li><li><a data-toggle="tab" href="#ubuntu">Ubuntu</a></li><li><a data-toggle="tab" href="#arch">Arch</a></li><li><a data-toggle="tab" href="#source">From Source</a></li></ul><div class="tab-content"><div class="tab-pane active" id="macosx"><p>You need to have <a href="http://mxcl.github.io/homebrew/">Homebrew</a>
 installed as a prerequisite.</p><pre>brew update                      && \
 brew tap nviennot/homebrew-tmate && \
-brew install tmate --HEAD</pre></div><div class="tab-pane" id="ubuntu"><p>Only Ubuntu 12.04 and 12.10 have published packages for tmate.
+brew install tmate</pre></div><div class="tab-pane" id="ubuntu"><p>Ubuntu 12.04 and up have published packages for tmate.<br />
 Please ask if you need support for more OSes.</p><pre>sudo apt-get install python-software-properties && \
 sudo add-apt-repository ppa:nviennot/tmate      && \
 sudo apt-get update                             && \
-sudo apt-get install tmate</pre></div><div class="tab-pane" id="arch"><p>Unofficial AUR package: <a href="https://aur.archlinux.org/packages/tmate/">https://aur.archlinux.org/packages/tmate/</a>.</p><p>To install, follow instructions from the <a href="https://wiki.archlinux.org/index.php/Arch_User_Repository#Installing_packages">Arch wiki</a>.</p></div><div class="tab-pane" id="source"><p>Grab the sources from github:
+sudo apt-get install tmate</pre></div><div class="tab-pane" id="arch"><p>Unofficial AUR package (outdated):<br /><a href="https://aur.archlinux.org/packages/tmate/">https://aur.archlinux.org/packages/tmate/</a>.</p><p>To install, follow instructions from the <a href="https://wiki.archlinux.org/index.php/Arch_User_Repository#Installing_packages">Arch wiki</a>.</p></div><div class="tab-pane" id="source"><p>Grab the sources from github:
 <a href="https://github.com/nviennot/tmate">https://github.com/nviennot/tmate</a>.<br />
 A few dependencies are required.<br />
 The Ubuntu packages names: cmake, pkg-config, libtool, libevent-dev, libncurses-dev, libssl-dev, zlib1g-dev.</p><pre>./autogen.sh && \
