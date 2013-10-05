@@ -35,18 +35,18 @@ The tmate client will try them all, and keep to the most responsive one.<br />
 <code>master.tmate.io</code> resolves to three servers, one in San Fransisco, one in New York, and one in Amsterdam.</p></div></div><hr /><div class="row"><div class="span12"><h2>Technical Details</h2></div><div class="span6"><p>Figure 1 depicts the architecture diagram with the different components of
 the system. The following describes the connection process with its
 security considerations, the protocol used between the two tmux servers,
-and the roadmap of tmate.</p><h4>Connection process</h4><p>When launching tmate, an ssh connection is established to tmate.io in the
+and the roadmap of tmate.</p><h4>Connection process</h4><p>When launching tmate, an ssh connection is established to tmate.io (or your own server) in the
 background through <a href="http://www.libssh.org/">libssh</a>.
-The server ssh key signatures are hardcoded in the tmate client and are
-verified during the DH exchange to prevent
+The server ssh key signatures are specified upfront and are verified
+during the DH exchange to prevent
 <a href="http://en.wikipedia.org/wiki/Man-in-the-middle_attack">man in the middle attacks</a>.
-The client is authenticated with local ssh keys.</p><p>When a connection is established on tmate.io, a 150 bits session token is
+The client is authenticated with local ssh keys.</p><p>When a connection is established, a 150 bits session token is
 generated, then a tmux server is spawned in a jail with no file system, with
 its own <a href="http://lwn.net/Articles/531114/#series_index">PID namespace</a> to isolate the server from other processes, and no user
 privileges. To allow this, all files required during the tmux server
 execution are opened before getting jailed. These measures are in place to limit
 the usefulness of possible exploits targeting the tmux server. The attacker
-would not be able to access other sessions, ensuring confidentiality.</p><p>When a mate connects to tmate.io with the ssh command, the tmux unix
+would not be able to access other sessions, ensuring confidentiality.</p><p>When a mate connects to tmate.io (or your own server) with the ssh command, the tmux unix
 socket is looked up on the file system. On lookup failures, a random sleep
 is performed to prevent <a href="http://en.wikipedia.org/wiki/Timing_attack">timing attacks</a>,
 otherwise a tmux client is spawned and connected to the remote tmux

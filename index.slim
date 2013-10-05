@@ -125,14 +125,14 @@ hr
 
     h4 Connection process
 
-    p When launching tmate, an ssh connection is established to tmate.io in the
+    p When launching tmate, an ssh connection is established to tmate.io (or your own server) in the
       background through <a href="http://www.libssh.org/">libssh</a>.
-      The server ssh key signatures are hardcoded in the tmate client and are
-      verified during the DH exchange to prevent
+      The server ssh key signatures are specified upfront and are verified
+      during the DH exchange to prevent
       <a href="http://en.wikipedia.org/wiki/Man-in-the-middle_attack">man in the middle attacks</a>.
       The client is authenticated with local ssh keys.
 
-    p When a connection is established on tmate.io, a 150 bits session token is
+    p When a connection is established, a 150 bits session token is
       generated, then a tmux server is spawned in a jail with no file system, with
       its own <a href="http://lwn.net/Articles/531114/#series_index">PID namespace</a> to isolate the server from other processes, and no user
       privileges. To allow this, all files required during the tmux server
@@ -140,7 +140,7 @@ hr
       the usefulness of possible exploits targeting the tmux server. The attacker
       would not be able to access other sessions, ensuring confidentiality.
 
-    p When a mate connects to tmate.io with the ssh command, the tmux unix
+    p When a mate connects to tmate.io (or your own server) with the ssh command, the tmux unix
       socket is looked up on the file system. On lookup failures, a random sleep
       is performed to prevent <a href="http://en.wikipedia.org/wiki/Timing_attack">timing attacks</a>,
       otherwise a tmux client is spawned and connected to the remote tmux
