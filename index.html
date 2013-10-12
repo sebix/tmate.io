@@ -9,8 +9,8 @@ sudo add-apt-repository ppa:nviennot/tmate      && \
 sudo apt-get update                             && \
 sudo apt-get install tmate</pre></div><div class="tab-pane" id="arch"><p>Unofficial AUR package (outdated):<br /><a href="https://aur.archlinux.org/packages/tmate/">https://aur.archlinux.org/packages/tmate/</a>.</p><p>To install, follow instructions from the <a href="https://wiki.archlinux.org/index.php/Arch_User_Repository#Installing_packages">Arch wiki</a>.</p></div><div class="tab-pane" id="source"><p>Grab the sources from github:
 <a href="https://github.com/nviennot/tmate">https://github.com/nviennot/tmate</a>.<br />
-A few dependencies are required.<br />
-The Ubuntu packages names: cmake, pkg-config, libtool, libevent-dev, libncurses-dev, libssl-dev, zlib1g-dev.</p><pre>./autogen.sh && \
+A few dependencies are required. The Ubuntu packages names are:<br />
+git-core build-essential pkg-config libtool libevent-dev libncurses-dev zlib1g-dev automake libssh-dev cmake ruby</p><pre>./autogen.sh && \
 ./configure  && \
 make         && \
 make install &&</pre></div></div></div></div><div class="span6"><h2>Usage</h2><p>Once installed, simply launch tmate with <code>tmate</code>.</p><p>Your mates will be using your tmux config and your key bindings.</p><p>The terminal
