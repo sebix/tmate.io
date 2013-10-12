@@ -18,8 +18,8 @@ is forced to 256 colors and UTF-8, so you don't need to pass
 <code>-2</code> as you may be used to do with tmux.</p><p>tmate uses both <code>~/.tmux.conf</code> and <code>~/.tmate.conf</code>
 configuration files.</p><p>Run <code>tmate show-messages</code> in your shell to see tmate's log
 messages, including the ssh connection string.</p><p>tmate also allow you to share a read-only view of your terminal.
-The read-only connection string can be retreived with <code>tmate show-messages</code>.</p></div></div><hr /><div class="row"><div class="span12"><h2>Host your own tmate server</h2><p>The server sources are located at <a href="https://github.com/nviennot/tmate-slave">https://github.com/nviennot/tmate-slave</a>.</p><p>Here is how you can run your own tmate server. You need a Linux
-distribution as tmate utilizes linux specific features.</p><pre>git clone https://github.com/nviennot/tmate-slave.git && cd tmate-slave
+The read-only connection string can be retreived with <code>tmate show-messages</code>.</p></div></div><hr /><div class="row"><div class="span12"><h2>Host your own tmate server</h2><p>The server sources are located at <a href="https://github.com/nviennot/tmate-slave">https://github.com/nviennot/tmate-slave</a>.</p><p>You need a Linux distribution as tmate utilizes linux specific features.</p><p>tmate also depends on a couple of packages. On Ubunutu, the packages are:<br />
+git-core build-essential pkg-config libtool libevent-dev libncurses-dev zlib1g-dev automake libssh-dev cmake ruby</p><p>Once all the prerequisites are satisfied, you can install tmate-slave with:</p><pre>git clone https://github.com/nviennot/tmate-slave.git && cd tmate-slave
 ./create_keys.sh # This will generate SSH keys, remember the keys fingerprints.
 vim tmate.h # Edit TMATE_DOMAIN with yours.
 ./autogen.sh && ./configure && make

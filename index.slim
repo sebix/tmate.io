@@ -89,8 +89,12 @@ hr
 
     p The server sources are located at <a href="https://github.com/nviennot/tmate-slave">https://github.com/nviennot/tmate-slave</a>.
 
-    p Here is how you can run your own tmate server. You need a Linux
-      distribution as tmate utilizes linux specific features.
+    p You need a Linux distribution as tmate utilizes linux specific features.
+
+    p tmate also depends on a couple of packages. On Ubunutu, the packages are:<br />
+      git-core build-essential pkg-config libtool libevent-dev libncurses-dev zlib1g-dev automake libssh-dev cmake ruby
+
+    p Once all the prerequisites are satisfied, you can install tmate-slave with:
 
     pre git clone https://github.com/nviennot/tmate-slave.git && cd tmate-slave
         ./create_keys.sh # This will generate SSH keys, remember the keys fingerprints.
