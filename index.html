@@ -56,9 +56,8 @@ all over the globe.</del></li><li>HTML5 client with fullscreen support, with aud
 to pair people with similar interests, or to do screencasts.</li></ul></div></div><hr /><div class="row"><div class="span12"><h2>Host your own tmate server</h2><p>The server sources are located at <a href="https://github.com/nviennot/tmate-slave">https://github.com/nviennot/tmate-slave</a>.</p><p>You need a Linux distribution as tmate utilizes linux specific features.</p><p>tmate also depends on a couple of packages. On Ubunutu, the packages are:<br />
 git-core build-essential pkg-config libtool libevent-dev libncurses-dev zlib1g-dev automake libssh-dev cmake ruby</p><p>Once all the prerequisites are satisfied, you can install tmate-slave with:</p><pre>git clone https://github.com/nviennot/tmate-slave.git && cd tmate-slave
 ./create_keys.sh # This will generate SSH keys, remember the keys fingerprints.
-vim tmate.h # Edit TMATE_DOMAIN with yours.
 ./autogen.sh && ./configure && make
-./tmate-slave</pre><p>Once your server is running, you must configure the clients to use your custom server. <br />
+sudo ./tmate-slave</pre><p>The usage of tmate-slave is:</p><pre>tmate-slave [-k keys_dir] [-l logfile] [-p port] [-h host] [-v]</pre><p>Once your server is running, you must configure the clients to use your custom server. <br />
 You may specify your custom options in the <code>~/.tmate.conf</code> file. Here are the default options:</p><pre>set -g tmate-server-host "master.tmate.io"
 set -g tmate-server-port 22
 set -g tmate-server-dsa-fingerprint   "f5:26:31:c3:8a:78:6e:5c:77:74:0f:41:5b:5f:21:88"

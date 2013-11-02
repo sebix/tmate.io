@@ -188,9 +188,12 @@ hr
 
     pre git clone https://github.com/nviennot/tmate-slave.git && cd tmate-slave
         ./create_keys.sh # This will generate SSH keys, remember the keys fingerprints.
-        vim tmate.h # Edit TMATE_DOMAIN with yours.
         ./autogen.sh && ./configure && make
-        ./tmate-slave
+        sudo ./tmate-slave
+
+    p The usage of tmate-slave is:
+
+    pre tmate-slave [-k keys_dir] [-l logfile] [-p port] [-h host] [-v]
 
     p Once your server is running, you must configure the clients to use your custom server. <br />
       You may specify your custom options in the <code>~/.tmate.conf</code> file. Here are the default options:
