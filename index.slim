@@ -36,6 +36,7 @@ hr
     .tabbable
       ul.nav.nav-tabs
         li.active: a[href="#macosx" data-toggle="tab"] Mac OS X
+        li:        a[href="#boxen"  data-toggle="tab"] Boxen
         li:        a[href="#ubuntu" data-toggle="tab"] Ubuntu
         li:        a[href="#arch"   data-toggle="tab"] Arch
         li:        a[href="#source" data-toggle="tab"] From Source
@@ -44,9 +45,16 @@ hr
         #macosx.tab-pane.active
           p You need to have <a href="http://mxcl.github.io/homebrew/">Homebrew</a>
             installed as a prerequisite.
-          pre brew update                      && \
-              brew tap nviennot/homebrew-tmate && \
+          pre brew update             && \
+              brew tap nviennot/tmate && \
               brew install tmate
+        #boxen.tab-pane
+          p Here is a boxen recipe:
+          pre homebrew::tap {
+                'nviennot/tmate':
+                } -> package { 'tmate':
+                ensure => present,
+              }
         #ubuntu.tab-pane
           p Ubuntu 12.04 and up have published packages for tmate.<br />
             Please ask if you need support for more OSes.
