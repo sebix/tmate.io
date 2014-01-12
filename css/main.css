@@ -143,14 +143,23 @@ p.fig-label span {
 }
 .footer {
   width: 100%;
-  height: 200px;
+  height: 140px;
   margin-top: 40px;
   padding-top: 30px;
   background-color: rgba(0, 0, 0, 0.5);
 }
-.footer .twitter {
-  margin-top: 50px;
-}
 .footer .digitalocean p {
   text-align: center;
+}
+.social-buttons {
+  margin-top: 10px;
+  margin-bottom: -30px;
+}
+.social-buttons .twitter {
+  display: inline;
+  margin-top: 8px;
+  margin-right: 17px;
+}
+.social-buttons .github {
+  display: inline;
 }
