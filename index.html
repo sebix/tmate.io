@@ -22,7 +22,11 @@ is forced to 256 colors and UTF-8, so you don't need to pass
 <code>-2</code> as you may be used to do with tmux.</p><p>tmate uses both <code>~/.tmux.conf</code> and <code>~/.tmate.conf</code>
 configuration files.</p><p>Run <code>tmate show-messages</code> in your shell to see tmate's log
 messages, including the ssh connection string.</p><p>tmate also allow you to share a read-only view of your terminal.
-The read-only connection string can be retreived with <code>tmate show-messages</code>.</p></div></div><hr /><div class="row"><div class="span12"><h2>Technical Details</h2></div><div class="span6"><p>Figure 1 depicts the architecture diagram with the different components of
+The read-only connection string can be retreived with <code>tmate show-messages</code>.</p></div></div><hr /><div class="row"><div class="span12"><h2>Running tmate as a daemon</h2><p>You can run tmate detached, and retrieve the SSH connection strings as follow:</p><pre>tmate -S /tmp/tmate.sock new-session -d               # Launch tmate in a detached state
+tmate -S /tmp/tmate.sock wait tmate-ready             # Blocks until the SSH connection is established
+tmate -S /tmp/tmate.sock display -p '#{tmate_ssh}'    # Prints the SSH connection string
+tmate -S /tmp/tmate.sock display -p '#{tmate_ssh_ro}' # Prints the read-only SSH connection string</pre><p>Note that it is important to specify a socket (e.g.  <code>/tmp/dev.sock</code>)
+as tmate uses a random socket name by default.</p><p>This feature was added in tmate 1.8.10 (31 Oct. 2014)</p></div></div><hr /><div class="row"><div class="span12"><h2>Technical Details</h2></div><div class="span6"><p>Figure 1 depicts the architecture diagram with the different components of
 the system. The following describes the connection process with its
 security considerations, the protocol used between the two tmux servers,
 and the roadmap of tmate.</p><h4>Connection process</h4><p>When launching tmate, an ssh connection is established to tmate.io (or your own server) in the
