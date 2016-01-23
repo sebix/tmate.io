@@ -102,7 +102,8 @@ hr
         tmate -S /tmp/tmate.sock wait tmate-ready             # Blocks until the SSH connection is established
         tmate -S /tmp/tmate.sock display -p '\#{tmate_ssh}'    # Prints the SSH connection string
         tmate -S /tmp/tmate.sock display -p '\#{tmate_ssh_ro}' # Prints the read-only SSH connection string
-
+        tmate -S /tmp/tmate.sock display -p '\#{tmate_web}'    # Prints the web connection string
+        tmate -S /tmp/tmate.sock display -p '\#{tmate_web_ro}' # Prints the read-only web connection string
 
     p Note that it is important to specify a socket (e.g.  <code>/tmp/dev.sock</code>)
       as tmate uses a random socket name by default.
