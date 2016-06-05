@@ -33,10 +33,12 @@ hr
 
     .tabbable
       ul.nav.nav-tabs
-        li.active: a[href="#macosx" data-toggle="tab"] Mac OS X
-        li:        a[href="#ubuntu" data-toggle="tab"] Ubuntu
-        li:        a[href="#static" data-toggle="tab"] Static Builds
-        li:        a[href="#source" data-toggle="tab"] Source
+        li.active: a[href="#macosx"  data-toggle="tab"] Mac OS X
+        li:        a[href="#ubuntu"  data-toggle="tab"] Ubuntu
+        li:        a[href="#freebsd" data-toggle="tab"] FreeBSD
+        li:        a[href="#gentoo"  data-toggle="tab"] Gentoo
+        li:        a[href="#static"  data-toggle="tab"] Static Builds
+        li:        a[href="#source"  data-toggle="tab"] Source
 
       .tab-content
         #macosx.tab-pane.active
@@ -50,6 +52,10 @@ hr
               sudo apt-get install tmate
           p You may install the <code>tmate-nightly</code> package for daily builds.
           p The official tmate Ubuntu packages are maintained by <a href="https://github.com/chilicuil">Javier López</a>.
+        #freebsd.tab-pane
+          pre pkg install tmate
+        #gentoo.tab-pane
+          pre emerge tmate
         #static.tab-pane
           p We provide x86 linux static builds for convenience.
           p Binaries can be found on the <a href="https://github.com/tmate-io/tmate/releases/latest">GitHub release page</a>
@@ -63,7 +69,6 @@ hr
               make install
           p A few dependencies are required. The Ubuntu package names are:<br />
             git-core build-essential pkg-config libtool libevent-dev libncurses-dev zlib1g-dev automake libssh-dev libmsgpack-dev
-
 
     <div class="social-buttons">
       <div class="github">
