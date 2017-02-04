@@ -35,6 +35,7 @@ hr
       ul.nav.nav-tabs
         li.active: a[href="#macosx"  data-toggle="tab"] Mac OS X
         li:        a[href="#ubuntu"  data-toggle="tab"] Ubuntu
+        li:        a[href="#fedora"  data-toggle="tab"] Fedora
         li:        a[href="#freebsd" data-toggle="tab"] FreeBSD
         li:        a[href="#gentoo"  data-toggle="tab"] Gentoo
         li:        a[href="#static"  data-toggle="tab"] Static Builds
@@ -52,6 +53,9 @@ hr
               sudo apt-get install tmate
           p You may install the <code>tmate-nightly</code> package for daily builds.
           p The official tmate Ubuntu packages are maintained by <a href="https://github.com/chilicuil">Javier López</a>.
+        #fedora.tab-pane
+          pre sudo dnf install tmate
+          p The Fedora packages are maintained by <a href="https://admin.fedoraproject.org/pkgdb/packager/asn/">Andreas Schneider</a>.
         #freebsd.tab-pane
           pre pkg install tmate
           p The FreeBSD packages are maintained by <a href="https://github.com/swills">Steve Wills</a>.
