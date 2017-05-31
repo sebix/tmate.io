@@ -37,6 +37,7 @@ hr
         li:        a[href="#ubuntu"  data-toggle="tab"] Ubuntu
         li:        a[href="#fedora"  data-toggle="tab"] Fedora
         li:        a[href="#freebsd" data-toggle="tab"] FreeBSD
+        li:        a[href="#openbsd" data-toggle="tab"] OpenBSD
         li:        a[href="#gentoo"  data-toggle="tab"] Gentoo
         li:        a[href="#static"  data-toggle="tab"] Static Builds
         li:        a[href="#source"  data-toggle="tab"] Source
@@ -59,6 +60,9 @@ hr
         #freebsd.tab-pane
           pre pkg install tmate
           p The FreeBSD packages are maintained by <a href="https://github.com/swills">Steve Wills</a>.
+        #openbsd.tab-pane
+          pre pkg_add tmate
+          p The OpenBSD packages are maintained by <a href="https://github.com/wesley974">Wesley Mouedine Assaby</a>.
         #gentoo.tab-pane
           pre emerge tmate
         #static.tab-pane
