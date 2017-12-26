@@ -39,6 +39,7 @@ hr
         li:        a[href="#freebsd" data-toggle="tab"] FreeBSD
         li:        a[href="#openbsd" data-toggle="tab"] OpenBSD
         li:        a[href="#gentoo"  data-toggle="tab"] Gentoo
+        li:        a[href="#opensuse" data-toggle="tab"] openSUSE
         li:        a[href="#static"  data-toggle="tab"] Static Builds
         li:        a[href="#source"  data-toggle="tab"] Source
 
@@ -65,6 +66,9 @@ hr
           p The OpenBSD packages are maintained by <a href="https://github.com/wesley974">Wesley Mouedine Assaby</a>.
         #gentoo.tab-pane
           pre emerge tmate
+        #opensuse.tab-pane
+          pre zypper install tmate
+          p <a href="https://software.opensuse.org/package/tmate">Installation on various (open)SUSE distributions.</a>
         #static.tab-pane
           p We provide x86 linux static builds for convenience.
           p Binaries can be found on the <a href="https://github.com/tmate-io/tmate/releases/latest">GitHub release page</a>
